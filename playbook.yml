@@ -1,0 +1,10 @@
+# playbook.yml
+---
+- hosts: all
+  vars_files:
+    - vars/main.yml
+  sudo: true
+  roles:
+    - repos
+    - webserver    
+    - database    

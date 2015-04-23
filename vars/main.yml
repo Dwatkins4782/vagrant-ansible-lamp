@@ -1,0 +1,12 @@
+---
+mysql_root_password: root
+mysql_databases:
+  - name: sample_db
+    encoding: latin1
+    collation: latin1_general_ci
+mysql_users:
+  - name: dev
+    host: "%"
+    password: dev
+    priv: "sample_db.*:ALL"
+mysql_enabled_on_startup: yes

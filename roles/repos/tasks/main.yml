@@ -1,0 +1,20 @@
+---
+- name: Install MySQL repo
+  yum:
+    name: "{{ mysql_repo_url }}"
+    state: present
+
+- name: Install Webstatic repo
+  yum:
+    name: "{{ webstatic_repo_url }}"
+    state: present
+
+- name: Install Epel repo
+  yum:
+    name: "{{ epel_repo_url }}"
+    state: present
+
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: "{{ epel_repo_gpg_key_url }}"
+    state: present

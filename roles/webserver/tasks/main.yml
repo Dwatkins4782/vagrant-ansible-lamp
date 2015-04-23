@@ -1,0 +1,19 @@
+# roles/webserver/tasks/main.yml
+---
+- name: Install Apache
+  yum: name=httpd state=present
+
+- name: Install PHP module for Apache
+  yum: name=php55w state=present
+
+- name: Install php55w-mysql module for Apache
+  yum: name=php55w-mysql state=present
+
+- name: Start Apache
+  service: name=httpd state=running enabled=yes
+
+- name: Install Hello World PHP script
+  copy: src=index.php dest=/var/www/html/index.php mode=0664
+
+- name: Disable firewalld
+  service: name=firewalld state=stopped enabled=no
