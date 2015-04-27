@@ -13,7 +13,6 @@ ANSIBLE_PLAYBOOK=$1
 
 # Detect package management system.
 YUM=$(which yum)
-APT_GET=$(which apt-get)
 
 # Make sure Ansible playbook exists.
 if [ ! -f /vagrant/$ANSIBLE_PLAYBOOK ]; then
@@ -25,33 +24,18 @@ fi
 if [ ! -f /usr/bin/ansible ]; then
   echo "Installing Ansible dependencies and Git."
   if [[ ! -z $YUM ]]; then
-    yum install -y git python python-devel
-  elif [[ ! -z $APT_GET ]]; then
-    apt-get install -y git python python-dev
+    sudo yum install -y git python python-devel
   else
-    echo "Neither yum nor apt-get are available."
+    echo "Yum not available."
     exit 1;
   fi
 
-  echo "Installing pip via easy_install."
-  wget https://raw.githubusercontent.com/ActiveState/ez_setup/v0.9/ez_setup.py
-  python ez_setup.py && rm -f ez_setup.py
-  easy_install pip
-  # Make sure setuptools are installed crrectly.
-  pip install setuptools --no-use-wheel --upgrade
-
-  echo "Installing required python modules."
-  pip install paramiko pyyaml jinja2 markupsafe
+  echo "Enabling EPEL repo for CentOS 7"
+  wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+  sudo rpm -ivh epel-release-7-5.noarch.rpm
 
   echo "Installing Ansible."
-  pip install ansible
-fi
-
-# Install Ansible roles from requirements file, if available.
-if [ -f /vagrant/requirements.txt ]; then
-  sudo ansible-galaxy install -r /vagrant/requirements.txt
-elif [-f /vagrant/requirements.yml ]; then
-  sudo ansible-galaxy install -r /vagrant/requirements.yml
+  sudo yum install ansible -y
 fi
 
 # Run the playbook.
