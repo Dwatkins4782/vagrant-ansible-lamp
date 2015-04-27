@@ -58,6 +58,8 @@ Webserver role is based on Adam Brett's [Vagrant & Ansible Quickstart Tutorial](
 
 Repos role is derived from @geerlingguy's [ansible-role-repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel)
 
+JJG-Ansible-Windows is from @geerlingguy's [JJG-Ansible-Windows](https://github.com/geerlingguy/JJG-Ansible-Windows)
+
 ## License
 MIT
 

@@ -77,9 +77,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   puppet.manifests_path = "manifests"
   #   puppet.manifest_file  = "site.pp"
   # end
-  
-  config.vm.provision :ansible do |ansible|
-      ansible.playbook = "playbook.yml"
-  end
-
+  require 'rbconfig'  
+  is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+	if is_windows
+	  # Provisioning configuration for shell script.
+	  config.vm.provision "shell" do |sh|
+	    sh.path = "provisioning/JJG-Ansible-Windows/windows.sh"
+	    sh.args = "provisioning/playbook.yml"
+	  end
+	else
+	  # Provisioning configuration for Ansible (for Mac/Linux hosts).
+	  config.vm.provision "ansible" do |ansible|
+	    ansible.playbook = "provisioning/playbook.yml"
+	    ansible.sudo = true
+	  end
+	end
 end
