@@ -11,9 +11,3 @@
 
 - name: Start Apache
   service: name=httpd state=running enabled=yes
-
-- name: Install Hello World PHP script
-  copy: src=index.php dest=/var/www/html/index.php mode=0664
-
-- name: Disable firewalld
-  service: name=firewalld state=stopped enabled=no

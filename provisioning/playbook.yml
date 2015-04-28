@@ -7,4 +7,5 @@
   roles:
     - repos
     - webserver    
-    - database    
+    - database
+    - extra

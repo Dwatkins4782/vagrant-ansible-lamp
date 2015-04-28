@@ -40,6 +40,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  # config.vm.synced_folder "./www", "/var/www/html",
+  #	owner: "root", group: "root", mount_options: ["dmode=775,fmode=664"]
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -79,19 +81,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   puppet.manifest_file  = "site.pp"
   # end
 
-  require 'rbconfig'
-  is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
-	if is_windows
+  #require 'rbconfig'
+  #is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+#	if is_windows
 	  # Provisioning configuration for shell script.
 	  config.vm.provision "shell" do |sh|
 	    sh.path = "provisioning/JJG-Ansible-Windows/windows.sh"
 	    sh.args = "provisioning/playbook.yml"
 	  end
-	else
+#	else
 	  # Provisioning configuration for Ansible (for Mac/Linux hosts).
-	  config.vm.provision "ansible" do |ansible|
-	    ansible.playbook = "provisioning/playbook.yml"
-	    ansible.sudo = true
-	  end
-	end
+#	  config.vm.provision "ansible" do |ansible|
+#	    ansible.playbook = "provisioning/playbook.yml"
+#	    ansible.sudo = true
+#	  end
+#	end
 end

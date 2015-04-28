@@ -1,0 +1,16 @@
+# /roles/extra/tasks/main.yml
+---
+- name: Disable firewalld
+  service: name=firewalld state=stopped enabled=no
+
+- name: Enable SELinux permissive mode
+  command: setenforce 0
+
+- name: Rename apache root dir
+  command: mv /var/www/html /var/www/html_old
+
+- name: Add symbolic link from www to apache root dir
+  command: ln -fs /vagrant/www /var/www/html
+
+- name: Add apache user to vagrant group
+  command: usermod -a -G vagrant apache

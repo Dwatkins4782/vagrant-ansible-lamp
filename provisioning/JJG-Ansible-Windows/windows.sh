@@ -11,6 +11,10 @@
 
 ANSIBLE_PLAYBOOK=$1
 
+# Add YUM timeout for slow connection
+echo "Adding yum timeout directives for slow connection."
+sudo sed -i '/^debuglevel/a\timeout=999' /etc/yum.conf
+
 # Detect package management system.
 YUM=$(which yum)
 
