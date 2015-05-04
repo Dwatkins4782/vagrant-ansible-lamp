@@ -1,0 +1,6 @@
+---
+- name: restart mysql
+  service: "name={{ mysql_daemon }} state=restarted sleep=5"
+
+- name: restart httpd
+  service: "name={{ httpd_daemon }} state=restarted sleep=5"

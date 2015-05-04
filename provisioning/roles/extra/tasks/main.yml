@@ -9,8 +9,9 @@
 - name: Rename apache root dir
   command: mv /var/www/html /var/www/html_old
 
+- name: Add apache user to vagrant group
+  command: usermod -a -G vagrant apache  
+
 - name: Add symbolic link from www to apache root dir
   command: ln -fs /vagrant/www /var/www/html
-
-- name: Add apache user to vagrant group
-  command: usermod -a -G vagrant apache
+  notify: restart httpd

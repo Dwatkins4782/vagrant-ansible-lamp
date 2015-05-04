@@ -10,10 +10,12 @@
 # export {http,https,ftp}_proxy='http://username:password@proxy-host:80'
 
 ANSIBLE_PLAYBOOK=$1
-
+MYSQL_DATA_DIR=$2
+YUM_CONF = /etc/yum.conf
 # Add YUM timeout for slow connection
 echo "Adding yum timeout directives for slow connection."
-sudo sed -i '/^debuglevel/a\timeout=999' /etc/yum.conf
+sudo grep -q '^timeout' $YUM_CONF && sudo sed -i 's/^timeout.*/timeout=999/' $YUM_CONF || sudo sed -i '/^debuglevel/a\timeout=999' $YUM_CONF
+#sudo sed -i '/^debuglevel/a\timeout=999' /etc/yum.conf
 
 # Detect package management system.
 YUM=$(which yum)
@@ -44,4 +46,4 @@ fi
 
 # Run the playbook.
 echo "Running Ansible provisioner defined in Vagrantfile."
-ansible-playbook -i 'localhost,' /vagrant/${ANSIBLE_PLAYBOOK} --extra-vars "is_windows=true" --connection=local
+ansible-playbook -i 'localhost,' /vagrant/${ANSIBLE_PLAYBOOK} --extra-vars "is_windows=true mysql_data_dir=${MYSQL_DATA_DIR}" --connection=local -vvvv

@@ -40,20 +40,27 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  # config.vm.synced_folder "./www", "/var/www/html",
-  #	owner: "root", group: "root", mount_options: ["dmode=775,fmode=664"]
+  config.vm.synced_folder "./database", "/var/lib/mysql/vagrant", id: "mysql",
+  	owner: "root", group: "root", mount_options: ["dmode=777,fmode=777"]
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider :virtualbox do |vb|
+  config.vm.provider :virtualbox do |vb|
+      # Change name
+      vb.name = "base"
+
   #   # Don't boot with headless mode
   #   vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
+  #
+  #    file_to_disk = './tmp/large_disk.vdi'
+  #    vb.customize ['createhd', '--filename', file_to_disk, '--size', 25 * 1024]
+  #    vb.customize ['storageattach', :id, '--storagectl', 'SATA', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
+  end
   #
   # View the documentation for the provider you're using for more
   # information on available options.
@@ -87,7 +94,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	  # Provisioning configuration for shell script.
 	  config.vm.provision "shell" do |sh|
 	    sh.path = "provisioning/JJG-Ansible-Windows/windows.sh"
-	    sh.args = "provisioning/playbook.yml"
+	    sh.args = "provisioning/playbook.yml /var/lib/mysql/vagrant"
 	  end
 #	else
 	  # Provisioning configuration for Ansible (for Mac/Linux hosts).
