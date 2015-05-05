@@ -5,7 +5,8 @@
     - vars/main.yml
   sudo: true
   roles:
-    - repos
+    - repos    
     - webserver    
     - database
+    - composer
     - extra

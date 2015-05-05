@@ -17,5 +17,4 @@
 - include: secure-installation.yml
 - include: databases.yml
 - include: users.yml
-- include: others.yml
-#- include: replication.yml
+- include: replication.yml

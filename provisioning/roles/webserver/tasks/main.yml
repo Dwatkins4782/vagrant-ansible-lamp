@@ -12,5 +12,8 @@
 - name: Install php-gd extension for for php
   yum: name=php55w-gd state=present
 
+- name: Install php-dom extension for for php
+  yum: name=php55w-dom state=present
+
 - name: Start Apache
   service: name=httpd state=running enabled=yes

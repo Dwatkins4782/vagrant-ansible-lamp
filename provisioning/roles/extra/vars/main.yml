@@ -1,4 +1,3 @@
 # /roles/extra/vars/main.yml
 ---
-mysql_daemon: mysqld
 httpd_daemon: httpd
