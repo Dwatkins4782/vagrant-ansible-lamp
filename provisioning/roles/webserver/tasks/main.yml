@@ -9,5 +9,8 @@
 - name: Install php55w-mysql module for Apache
   yum: name=php55w-mysql state=present
 
+- name: Install php-gd extension for for php
+  yum: name=php55w-gd state=present
+
 - name: Start Apache
   service: name=httpd state=running enabled=yes
