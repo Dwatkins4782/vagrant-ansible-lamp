@@ -1,13 +1,13 @@
 # /roles/extra/tasks/main.yml
 ---
-- name: Disable firewalld
-  service: name=firewalld state=stopped enabled=no
+- name: Allow http from firewalld
+  firewalld: service=http permanent=true state=enabled
+
+- name: Reload firewalld
+  shell: firewall-cmd --reload
 
 - name: Enable SELinux permissive mode
-  command: setenforce 0
-
-# - name: Rename apache root dir
-  # command: mv /var/www/html /var/www/html_old
+  selinux: policy=targeted state=permissive
 
 - name: Add apache user to vagrant group
   command: usermod -a -G vagrant apache  

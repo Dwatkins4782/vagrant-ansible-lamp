@@ -59,39 +59,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #    vb.customize ['createhd', '--filename', file_to_disk, '--size', 25 * 1024]
   #    vb.customize ['storageattach', :id, '--storagectl', 'SATA', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
   end
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
-
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file chef/centos-7.0.pp in the manifests_path directory.
-  #
-  # An example Puppet manifest to provision the message of the day:
-  #
-  # # group { "puppet":
-  # #   ensure => "present",
-  # # }
-  # #
-  # # File { owner => 0, group => 0, mode => 0644 }
-  # #
-  # # file { '/etc/motd':
-  # #   content => "Welcome to your Vagrant-built virtual machine!
-  # #               Managed by Puppet.\n"
-  # # }
-  #
-  # config.vm.provision :puppet do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "site.pp"
-  # end
 
   require 'rbconfig'
   is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
 	if is_windows
 	  # Provisioning configuration for shell script.
 	  config.vm.provision "shell" do |sh|
-	    sh.path = "provisioning/JJG-Ansible-Windows/windows.sh"	    
+	    sh.path = "provisioning/JJG-Ansible-Windows/windows.sh"
+      sh.args = "provisioning/playbook.yml"
 	  end
 	else
 	  # Provisioning configuration for Ansible (for Mac/Linux hosts).
