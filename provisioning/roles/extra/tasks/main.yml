@@ -16,7 +16,7 @@
   command: ln -fs /vagrant/www /var/www/dev
 
 - name: Copy virtualhost file to httpd dir
-  copy: src=www.score.dev.conf dest=/etc/httpd/conf.d owner=root group=root mode=0644
+  copy: src=vhost.conf dest=/etc/httpd/conf.d owner=root group=root mode=0644
   notify: restart httpd
 
 - name: Install drush using composer
