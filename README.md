@@ -47,9 +47,9 @@ mysql_enabled_on_startup: yes
 ## Ansible Roles
 There are currently three roles for ansible
 
-* [ansible-role-repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel) - Installs epel repo
-* [ansible-role-mysql](https://github.com/geerlingguy/ansible-role-mysql) - Installs MySQL database
-* [ansible-role-apache](https://github.com/geerlingguy/ansible-role-apache) - Installs Apache
+* [ansible-role-repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel) - Installs [EPEL](https://fedoraproject.org/wiki/EPEL) repo
+* [ansible-role-mysql](https://github.com/geerlingguy/ansible-role-mysql) - Installs MySQL database server
+* [ansible-role-apache](https://github.com/geerlingguy/ansible-role-apache) - Installs Apache server
 * [ansible-role-php](https://github.com/geerlingguy/ansible-role-php) - Installs PHP and some of its common modules
 * repo-webtatic - Download and install [webtatic repo](https://webtatic.com/)
 * extra - Configure SELinux, add www project directory to document root
