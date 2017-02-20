@@ -1,8 +1,8 @@
 ## LAMP Stack via Ansible on Vagrant
-Setup LAMP Stack and RHEL/CentOS using Ansible as provisioner on Vagrant
+Setup LAMP Stack with RHEL/CentOS using Ansible as provisioner on Vagrant
 
 ## Requirements
-1. VirtualBox installed - you can get it from https://www.virtualbox.org/wiki/Downloads
+1. VirtualBox installed - get it from https://www.virtualbox.org/wiki/Downloads
 2. Vagrant installed - get it from http://www.vagrantup.com/downloads.html
 
 ## Vagrantfile
@@ -25,7 +25,7 @@ or
 ```
 $ vagrant box add username/box-name
 ex:
-$ vagrant box add chef/centos-7.0
+$ vagrant box add centos/7
 ```
 
 ## Ansible Role Variables
@@ -47,21 +47,12 @@ mysql_enabled_on_startup: yes
 ## Ansible Roles
 There are currently three roles for ansible
 
-1. database - handles mysql-server installation
-2. webserver - handles httpd/apache and php installation
-3. repos - handles installation for needed repository
-
-## Mentions
-Database role is taken from @geerlingguy's [ansible-role-mysql](https://github.com/geerlingguy/ansible-role-mysql)
-
-Webserver role is based on Adam Brett's [Vagrant & Ansible Quickstart Tutorial](https://adamcod.es/2014/09/23/vagrant-ansible-quickstart-tutorial.html)
-
-Repos role is derived from @geerlingguy's [ansible-role-repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel)
-
-JJG-Ansible-Windows is from @geerlingguy's [JJG-Ansible-Windows](https://github.com/geerlingguy/JJG-Ansible-Windows)
+* [ansible-role-repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel) - Installs epel repo
+* [ansible-role-mysql](https://github.com/geerlingguy/ansible-role-mysql) - Installs MySQL database
+* [ansible-role-apache](https://github.com/geerlingguy/ansible-role-apache) - Installs Apache
+* [ansible-role-php](https://github.com/geerlingguy/ansible-role-php) - Installs PHP and some of its common modules
+* repo-webtatic - Download and install [webtatic repo](https://webtatic.com/)
+* extra - Configure SELinux, add www project directory to document root
 
 ## License
 MIT
-
-## Author Info
-Created by Bryan CS in 2015 for evertone to use!
