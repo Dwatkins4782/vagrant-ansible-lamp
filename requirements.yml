@@ -1,4 +1,5 @@
 ---
+- src: geerlingguy.repo-epel
 - src: geerlingguy.mysql
 - src: geerlingguy.apache
 - src: geerlingguy.php

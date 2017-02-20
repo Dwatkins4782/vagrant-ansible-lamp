@@ -6,14 +6,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos/7"
-  #config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 80, host: 8080
   #config.vm.network :forwarded_port, guest: 3306, host: 3306
   config.vm.hostname = "lamp"
   config.vm.network "private_network", ip: "10.0.0.10"
-
-#  config.ssh.username = "vagrant"
-#  config.ssh.password = "vagrant"
-#  config.ssh.insert_key = false
 
   #Set name
   config.vm.define :lamp do |lamp|
@@ -25,7 +21,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
-  #config.vm.provision :shell, :path => "install_drupal.sh"
   config.vm.provision :ansible_local do |ansible|
     ansible.playbook       = "provisioning/playbook.yml"
     ansible.verbose        = true

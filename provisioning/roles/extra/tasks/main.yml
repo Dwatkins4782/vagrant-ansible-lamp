@@ -1,23 +1,10 @@
 # /roles/extra/tasks/main.yml
 ---
-- name: Allow http from firewalld
-  firewalld: service=http permanent=true state=enabled
-
-- name: Reload firewalld
-  shell: firewall-cmd --reload
-
 - name: Enable SELinux permissive mode
   selinux: policy=targeted state=permissive
 
 - name: Add apache user to vagrant group
   command: usermod -a -G vagrant apache  
 
-- name: Add symbolic link from www to apache root dir
-  command: ln -fs /vagrant/www /var/www/dev
-
-- name: Copy virtualhost file to httpd dir
-  copy: src=vhost.conf dest=/etc/httpd/conf.d owner=root group=root mode=0644
-  notify: restart httpd
-
-- name: Install drush using composer
-  composer: command=install working_dir=/var/www/dev
+- name: Add symbolic link from project www to apache document root
+  file: src=/vagrant/www dest=/var/www/dev state=link

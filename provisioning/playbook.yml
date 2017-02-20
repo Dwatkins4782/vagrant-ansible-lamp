@@ -4,9 +4,10 @@
   vars_files:
     - vars/main.yml
   sudo: true
-  roles:    
+  roles:
+    - repo-webtatic
+    - geerlingguy.repo-epel
     - geerlingguy.mysql
     - geerlingguy.apache
-    - geerlingguy.php  
-    - repos            
+    - geerlingguy.php    
     - extra

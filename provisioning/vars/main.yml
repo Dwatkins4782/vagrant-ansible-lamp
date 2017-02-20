@@ -1,5 +1,4 @@
 ---
-server_name: local.dev
 mysql_root_password: root
 mysql_databases:
   - name: sample_db
@@ -19,3 +18,7 @@ php_packages:
   - php55w-gd
   - php55w-mysql  
 php_install_recommends: no
+apache_vhosts:
+  - servername: "local.dev"
+    serveralias: "local.dev"
+    documentroot: "/var/www/dev"
