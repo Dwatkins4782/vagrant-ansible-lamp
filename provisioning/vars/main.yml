@@ -16,8 +16,7 @@ php_packages:
   - php55w-common
   - php55w-dom
   - php55w-gd
-  - php55w-mysql  
-php_install_recommends: no
+  - php55w-mysql
 apache_vhosts:
   - servername: "local.dev"
     serveralias: "local.dev"

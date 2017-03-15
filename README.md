@@ -1,32 +1,19 @@
 ## LAMP Stack via Ansible on Vagrant
 Setup LAMP Stack with RHEL/CentOS using Ansible as provisioner on Vagrant
 
+## Component Versions
+OS: Centos 6.8
+Apache: 2.2
+MySQL: 5.1
+PHP: 5.5
+
 ## Requirements
-1. VirtualBox installed - get it from https://www.virtualbox.org/wiki/Downloads
-2. Vagrant installed - get it from http://www.vagrantup.com/downloads.html
+1. Make sure your machine supports Virtualization
+2. VirtualBox installed - get it from https://www.virtualbox.org/wiki/Downloads
+3. Vagrant installed - get it from http://www.vagrantup.com/downloads.html
 
-## Vagrantfile
-To change box, update the directive below inside the Vagrantfile
-
-`config.vm.box = "centos-7.0"`
-
-Make sure the box exist. You can get more boxes from [Vagrantboxes](http://www.vagrantbox.es/) and [Vagrantcloud](https://atlas.hashicorp.com/boxes/search?utm_source=vagrantcloud.com&vagrantcloud=1).
-
-You can add box by running:
-
-```
-$ vagrant box add {title} {url}
-ex:
-$ vagrant box add centos-7.0 https://f0fff3908f081cb6461b407be80daf97f07ac418.googledrive.com/host/0BwtuV7VyVTSkUG1PM3pCeDJ4dVE/centos7.box
-```
-
-or
-
-```
-$ vagrant box add username/box-name
-ex:
-$ vagrant box add centos/7
-```
+## Provisioning
+Vagrant uses ansible local provisioning so it should work fine on Windows and Linux where no ansible is installed on the host machine.
 
 ## Ansible Role Variables
 Below are some of the variables available for specific user configs.

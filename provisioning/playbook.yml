@@ -5,8 +5,8 @@
     - vars/main.yml
   sudo: true
   roles:
-    - repo-webtatic
     - geerlingguy.repo-epel
+    - repo-webtatic    
     - geerlingguy.mysql
     - geerlingguy.apache
     - geerlingguy.php    
