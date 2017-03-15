@@ -2,10 +2,10 @@
 Setup LAMP Stack with RHEL/CentOS using Ansible as provisioner on Vagrant
 
 ## Component Versions
-OS: Centos 6.8
-Apache: 2.2
-MySQL: 5.1
-PHP: 5.5
+* OS: Centos 6.8
+* Apache: 2.2
+* MySQL: 5.1
+* PHP: 5.5
 
 ## Requirements
 1. Make sure your machine supports Virtualization
