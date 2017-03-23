@@ -10,13 +10,9 @@ mysql_users:
     password: dev
     priv: "sample_db.*:ALL"
 mysql_enabled_on_startup: yes
-php_packages:
-  - php55w
-  - php55w-cli
-  - php55w-common
-  - php55w-dom
-  - php55w-gd
-  - php55w-mysql
+apache_enablerepo: "epel"
+apache_packages_state: latest
+php_enablerepo: "epel"
 apache_vhosts:
   - servername: "local.dev"
     serveralias: "local.dev"

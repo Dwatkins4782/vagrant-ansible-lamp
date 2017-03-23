@@ -1,3 +1,0 @@
-# /roles/extra/vars/main.yml
----
-httpd_daemon: httpd

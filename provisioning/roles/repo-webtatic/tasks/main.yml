@@ -1,5 +1,0 @@
----
-- name: Install Webtatic repo
-  yum:
-    name: "{{ webtatic_repo_url }}"
-    state: present

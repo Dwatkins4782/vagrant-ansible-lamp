@@ -1,0 +1,5 @@
+# /roles/extra/tasks/main.yml
+---
+- name: Enable SELinux permissive mode
+  selinux: policy=targeted state=permissive
+  when: ansible_os_family == "RedHat"
