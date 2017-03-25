@@ -4,12 +4,12 @@ services: docker
 env:
   - distro: centos6
     init: /sbin/init
-    mysql_stat: service mysqld status
+    mysql_stat: 'service mysqld status'
   # - distro: centos7
   #   init: /usr/lib/systemd/systemd
   - distro: ubuntu1404
     init: /sbin/init
-    mysql_stat: service mysql status
+    mysql_stat: 'service mysql status'
   # - distro: ubuntu1604
   #   init: /lib/systemd/systemd
 
