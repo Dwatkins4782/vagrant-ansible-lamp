@@ -1,9 +1,19 @@
 ---
 services: docker
 
+env:
+  - distro: centos6
+    init: /sbin/init
+  - distro: centos7
+    init: /usr/lib/systemd/systemd
+  - distro: ubuntu1404
+    init: /sbin/init
+  - distro: ubuntu1604
+    init: /lib/systemd/systemd
+
 before_install:
-  # Build image to use
-  - 'docker build -t iambryancs/ansible-test-image -f tests/Dockerfile .'
+  # Pull container to use
+  - 'docker pull geerlingguy/docker-${distro}-ansible:latest'
 
 install:
   - 'gem install rubocop'
@@ -12,11 +22,21 @@ script:
   # Vagrantfile syntax check
   - 'rubocop Vagrantfile --except MutableConstant,LineLength'
 
+  # Run test container
+  - 'container_name=test'
+  - 'docker run -td --name=${container_name} -v ${PWD}:/var/www/vagrant:rw geerlingguy/docker-${distro}-ansible:latest ${init}'
+
+  # Add ansible role requirements
+  - 'docker exec -t test env TERM=xterm ansible-galay install -r /var/www/vagrant/requirements.yml'
+
+  # Prep test setup
+  - 'docker exec -t test env TERM=xterm ansible-playbook /var/www/vagrant/tests/test.yml'
+
   # Basic role syntax check
-  - 'docker run -t --rm iambryancs/ansible-test-image ansible-playbook provisioning/playbook.yml --syntax-check'
+  - 'docker exec -t test env TERM=xterm ansible-playbook /var/www/vagrant/provisioning/playbook.yml --syntax-check'
 
   # Test role
-  - 'docker run -t --rm iambryancs/ansible-test-image ansible-playbook provisioning/playbook.yml'
+  - 'docker exec -t test env TERM=xterm ansible-playbook /var/www/vagrant/provisioning/playbook.yml'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

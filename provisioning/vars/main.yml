@@ -16,4 +16,4 @@ php_enablerepo: "epel"
 apache_vhosts:
   - servername: "local.dev"
     serveralias: "local.dev"
-    documentroot: "/var/www/dev"
+    documentroot: "/var/www/vagrant/html"
