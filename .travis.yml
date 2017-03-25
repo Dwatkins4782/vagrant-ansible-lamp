@@ -4,12 +4,10 @@ services: docker
 env:
   - distro: centos6
     init: /sbin/init
-    mysql_stat: 'service mysqld status'
   # - distro: centos7
   #   init: /usr/lib/systemd/systemd
   - distro: ubuntu1404
     init: /sbin/init
-    mysql_stat: 'service mysql status'
   # - distro: ubuntu1604
   #   init: /lib/systemd/systemd
 
@@ -26,23 +24,25 @@ script:
 
   # Run test container
   - 'container_name=test'
-  - 'docker run -d --name=${container_name} -v ${PWD}:/var/www/vagrant:rw geerlingguy/docker-${distro}-ansible:latest ${init}'
+  - 'vagrant_dir=/var/www/vagrant'
+  - 'docker run -d --name=${container_name} -v ${PWD}:${vagrant_dir}:rw geerlingguy/docker-${distro}-ansible:latest ${init}'
 
   # Add ansible role requirements
-  - 'docker exec ${container_name} ansible-galaxy install -r /var/www/vagrant/requirements.yml'
+  - 'docker exec ${container_name} ansible-galaxy install -r ${vagrant_dir}/requirements.yml'
 
   # Prep test setup
-  - 'docker exec ${container_name} ansible-playbook /var/www/vagrant/tests/test.yml'
+  - 'docker exec ${container_name} ansible-playbook ${vagrant_dir}/tests/test.yml'
 
   # Basic role syntax check
-  - 'docker exec -t ${container_name} env TERM=xterm ansible-playbook /var/www/vagrant/provisioning/playbook.yml --syntax-check'
+  - 'docker exec -t ${container_name} env TERM=xterm ansible-playbook ${vagrant_dir}/provisioning/playbook.yml --syntax-check'
 
   # Test role
-  - 'docker exec ${container_name} ansible-playbook /var/www/vagrant/provisioning/playbook.yml'
+  - 'docker exec ${container_name} ansible-playbook ${vagrant_dir}/provisioning/playbook.yml'
 
-  # Check to make sure we can connect to MySQL via Unix socket.
+  # Check to make sure we can connect to MySQL
   - >
     sudo docker exec ${container_name} mysql -u root -proot -e 'show databases;'
     | grep -q 'information_schema'
     && (echo 'MySQL running normally' && exit 0)
     || (echo 'MySQL not running' && exit 1)
+
