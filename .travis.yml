@@ -37,3 +37,10 @@ script:
 
   # Test role
   - 'docker exec -t test env TERM=xterm ansible-playbook /var/www/vagrant/provisioning/playbook.yml'
+
+  # Check to make sure we can connect to MySQL via Unix socket.
+  - >
+    sudo docker exec "$(cat ${container_id})" mysql -u root -proot -e 'show databases;'
+    | grep -q 'information_schema'
+    && (echo 'MySQL running normally' && exit 0)
+    || (echo 'MySQL not running' && exit 1)
