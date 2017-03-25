@@ -4,10 +4,12 @@ services: docker
 env:
   - distro: centos6
     init: /sbin/init
+    mysql_stat: service mysqld status
   # - distro: centos7
   #   init: /usr/lib/systemd/systemd
   - distro: ubuntu1404
     init: /sbin/init
+    mysql_stat: service mysql status
   # - distro: ubuntu1604
   #   init: /lib/systemd/systemd
 
@@ -27,16 +29,16 @@ script:
   - 'docker run -d --name=${container_name} -v ${PWD}:/var/www/vagrant:rw geerlingguy/docker-${distro}-ansible:latest ${init}'
 
   # Add ansible role requirements
-  - 'docker exec ${container_name} env TERM=xterm ansible-galaxy install -r /var/www/vagrant/requirements.yml'
+  - 'docker exec ${container_name} ansible-galaxy install -r /var/www/vagrant/requirements.yml'
 
   # Prep test setup
-  - 'docker exec ${container_name} env TERM=xterm ansible-playbook /var/www/vagrant/tests/test.yml'
+  - 'docker exec ${container_name} ansible-playbook /var/www/vagrant/tests/test.yml'
 
   # Basic role syntax check
   - 'docker exec -t ${container_name} env TERM=xterm ansible-playbook /var/www/vagrant/provisioning/playbook.yml --syntax-check'
 
   # Test role
-  - 'docker exec ${container_name} env TERM=xterm ansible-playbook /var/www/vagrant/provisioning/playbook.yml'
+  - 'docker exec ${container_name} ansible-playbook /var/www/vagrant/provisioning/playbook.yml'
 
-  # Check if MySQL is running
-  - 'docker exec ${container_name} /etc/init.d/mysql status && (echo "MySQL is running" && exit 0) || (echo "MySQL is stopped" && exit 1)'
+  # Make sure MySQL is running
+  - 'docker exec ${container_name} ${mysql_stat}'
