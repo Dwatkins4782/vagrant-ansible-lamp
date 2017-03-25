@@ -4,12 +4,12 @@ services: docker
 env:
   - distro: centos6
     init: /sbin/init
-  - distro: centos7
-    init: /usr/lib/systemd/systemd
+  # - distro: centos7
+  #   init: /usr/lib/systemd/systemd
   - distro: ubuntu1404
     init: /sbin/init
-  - distro: ubuntu1604
-    init: /lib/systemd/systemd
+  # - distro: ubuntu1604
+  #   init: /lib/systemd/systemd
 
 before_install:
   # Pull container to use
@@ -37,6 +37,3 @@ script:
 
   # Test role
   - 'docker exec -t test env TERM=xterm ansible-playbook /var/www/vagrant/provisioning/playbook.yml'
-
-notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/

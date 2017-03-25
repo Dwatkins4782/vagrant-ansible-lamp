@@ -1,5 +1,9 @@
 ---
+# MySQL related config
 mysql_root_password: root
+mysql_slow_query_log_enabled: true
+mysql_slow_query_time: 2
+mysql_wait_timeout: 300
 mysql_databases:
   - name: sample_db
     encoding: latin1
@@ -9,11 +13,14 @@ mysql_users:
     host: "%"
     password: dev
     priv: "sample_db.*:ALL"
-mysql_enabled_on_startup: yes
+
+# Apache related config
 apache_enablerepo: "epel"
 apache_packages_state: latest
-php_enablerepo: "epel"
 apache_vhosts:
   - servername: "local.dev"
     serveralias: "local.dev"
     documentroot: "/var/www/vagrant/html"
+
+# PHP related config
+php_enablerepo: "epel"
