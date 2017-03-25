@@ -27,7 +27,7 @@ script:
   - 'docker run -td --name=${container_name} -v ${PWD}:/var/www/vagrant:rw geerlingguy/docker-${distro}-ansible:latest ${init}'
 
   # Add ansible role requirements
-  - 'docker exec -t test env TERM=xterm ansible-galay install -r /var/www/vagrant/requirements.yml'
+  - 'docker exec -t test env TERM=xterm ansible-galaxy install -r /var/www/vagrant/requirements.yml'
 
   # Prep test setup
   - 'docker exec -t test env TERM=xterm ansible-playbook /var/www/vagrant/tests/test.yml'
