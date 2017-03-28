@@ -9,9 +9,9 @@ mysql_databases:
     encoding: latin1
     collation: latin1_general_ci
 mysql_users:
-  - name: dev
+  - name: vagrant
     host: "%"
-    password: dev
+    password: vagrant
     priv: "sample_db.*:ALL"
 
 # Apache related config
@@ -24,3 +24,5 @@ apache_vhosts:
 
 # PHP related config
 php_enablerepo: "epel"
+php_opcache_enable: "0"
+php_enable_apc: false
